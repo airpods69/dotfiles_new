@@ -1,0 +1,91 @@
+[global]
+#################
+##### Dunst #####
+#################
+
+#Identification
+title = Notification
+class = Notification
+
+#Location
+follow = none
+
+#Geometry
+geometry = "325x50-5+5"
+
+#Frame
+frame_width = 2
+frame_color = "#FFFFFF"
+
+#Progress Bar
+progress_bar = true
+progress_bar_height = 10
+progress_bar_frame_width = 2
+
+#Padding
+padding = 8
+horizontal_padding = 8
+
+#Format
+format = "<b>%s</b>\n%b"
+
+#Indicators
+show_indicators = no
+
+#Word Wrap
+word_wrap = yes
+
+
+#Font
+font = "Noto Sans" 10
+
+#Duplicates
+stack_duplicates = false
+hide_duplicate_count = true
+
+#Sort by Urgency
+sort = yes
+
+#Alignment 
+alignment = left
+
+#Hidden
+indicate_hidden = no
+
+#Age
+show_age_threshold = -1
+
+#Idle
+idle_threshold = 0
+
+#History 
+history_length = 0 
+ 
+#Icons 
+icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+max_icon_size = 32
+    
+#dbus
+ignore_dbusclose = true
+
+#Scripting
+always_run_script = true
+    
+##################
+##### Colors #####
+##################
+
+[urgency_low]
+background = "#00000085"
+foreground = "#FFFFFF"
+timeout = 5
+ 
+[urgency_normal]
+background = "#00000085"
+foreground = "#FFFFFF"
+timeout = 5
+ 
+[urgency_critical]
+background = "#00000085"
+foreground = "#FFFFFF"
+timeout = 10
