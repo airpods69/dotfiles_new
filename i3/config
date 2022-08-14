@@ -17,10 +17,10 @@ font pango: "Noto Sans" 10
 
 #Gaps
 gaps inner 4
-gaps outer 2
+gaps outer 0
 
 #Border
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 0
 
 #Colors
 set_from_resource $bg i3wm #FFFFFF
@@ -31,7 +31,7 @@ client.focused_inactive	$ofg $ofg $ofg $ofg $ofg
 client.unfocused $ofg $ofg $ofg $ofg $ofg
 client.background $ofg $ofg $ofg $ofg $ofg
 client.urgent $bg $bg $fg $bg $bg
-client.placeholder $bg $bg $fg $bg $bg 
+client.placeholder $bg $bg $fg $bg $bg
 
 #Workspaces
 set $WS1 "1"
@@ -58,7 +58,7 @@ bindsym $Mod+Shift+Ctrl+S exec systemctl poweroff
 bindsym $Mod+Shift+R restart
 bindsym $mod+Ctrl+L exec ~/.config/i3/scripts/blur-lock.sh
 
-#Resize 
+#Resize
 bindsym $mod+r mode "resize"
 mode "resize" {
     # same bindings, but for the arrow keys
@@ -149,10 +149,10 @@ bindsym $Mod+Shift+0 move container to workspace number $WS10
 
 #Launch Programs
 bindsym $Mod+Return exec kitty
-bindsym $Mod+W exec firefox
+bindsym $Mod+W exec google-chrome-stable
 bindsym $Mod+N exec thunar
 #bindsym $Mod+D exec discord
-bindsym $Mod+D exec "rofi -show drun -sidebar-mode -font 'Noto Sans 14'
+bindsym $Mod+D exec rofi -show drun -font 'Roboto Mono 14'
 bindsym Print exec flameshot gui
 bindsym $Mod+B exec notify-send "$(acpi)"
 bindsym $Mod+T exec notify-send "$(date)"
@@ -168,14 +168,14 @@ assign [class="discord"] $WS2
 #Hardware
 exec xset s off -dpms
 exec xset led named "Scroll Lock"
-exec_always --no-startup-id autotiling 
+exec_always --no-startup-id autotiling
 
 #System
 exec Xft.dpi: 120
 exec dunst
 exec picom --experimental-backends --vsync
-exec_always feh --bg-fill ~/Pictures/Wallpapers/current.jpg
-exec noisetorch
+exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
+bindsym $Mod+V exec feh --randomize --bg-scale ~/Pictures/Wallpapers/*
 
 set $bg-color            #282a36
 set $inactive-bg-color   #282a36
@@ -194,13 +194,13 @@ for_window [class="zoom"] [title="Chat"] move position mouse
 # bar settings (input comes from i3blocks) #
 ############################################
 
-#bindsym $mod+Ctrl+b bar mode toggle
+bindsym $mod+Ctrl+b bar mode toggle
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available):
 #bar {
 #	   font pango:Noto Sans Regular 11, FontAwesome 11
-#    status_command i3blocks -c ~/.config/i3/i3blocks.conf 
+#    status_command i3blocks -c ~/.config/i3/i3blocks.conf
 #    position top
 #    colors {
 #      separator          #666666
@@ -213,4 +213,11 @@ for_window [class="zoom"] [title="Chat"] move position mouse
 #    }
 #}
 
-exec_always --no-startup-id ~/.config/polybar/launch.sh
+bar {
+	font pango:Roboto Mono 10
+	position top
+	status_command bumblebee-status -m hostname cpu \
+		memory battery pasink pasource brightness date time\
+		-p time.format="%H:%M" date.format="%a, %b %d %Y" brightness.step=5 \
+		-t onedark-powerline
+}
