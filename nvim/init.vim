@@ -3,8 +3,8 @@ set nu
 set nohlsearch
 set hidden
 set noerrorbells
-set tabstop=4 softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set smartindent
 set nowrap
@@ -24,6 +24,8 @@ call plug#begin()
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'BurntSushi/ripgrep'
+
 Plug 'andweeb/presence.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'wfxr/minimap.vim'
@@ -51,9 +53,20 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'williamboman/nvim-lsp-installer'
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
+
+" Debugger
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'nvim-telescope/telescope-dap.nvim'
+
 
 " Jupyter Notebook
 Plug 'luk400/vim-jukit'
+
+" Matlab
+Plug 'jvirtanen/vim-octave'
 
 " Line Indent
 Plug 'Yggdroot/indentLine'
@@ -87,6 +100,14 @@ augroup END
 
 
 """ Plugins
+
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
+autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
+autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
 
 " Rainbow
 let g:rainbow_active = 1
@@ -237,15 +258,18 @@ EOF
 
 " LSP
 lua << EOF
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  end
+local lspconfig = require('lspconfig')
+local servers = { 'clangd', 'pyright', 'tsserver' }
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    -- on_attach = my_custom_on_attach,
+    -- capabilities = capabilities,
+  }
+end
 
-require("lspconfig").pyright.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    }
+-- require("lspconfig").pyright.setup {}
+-- require("lspconfig").tsserver.setup {}
+-- require("lspconfig").clangd.setup {}
 require("nvim-lsp-installer").setup {}
 EOF
 
@@ -263,6 +287,72 @@ lua << END
 require('Comment').setup()
 END
 
+" Debugger
+lua << END
+require("dapui").setup({
+  icons = { expanded = "▾", collapsed = "▸" },
+  mappings = {
+    -- Use a table to apply multiple mappings
+    expand = { "<CR>", "<2-LeftMouse>" },
+    open = "o",
+    remove = "d",
+    edit = "e",
+    repl = "r",
+    toggle = "t",
+  },
+  -- Expand lines larger than the window
+  -- Requires >= 0.7
+  expand_lines = vim.fn.has("nvim-0.7"),
+  -- Layouts define sections of the screen to place windows.
+  -- The position can be "left", "right", "top" or "bottom".
+  -- The size specifies the height/width depending on position. It can be an Int
+  -- or a Float. Integer specifies height/width directly (i.e. 20 lines/columns) while
+  -- Float value specifies percentage (i.e. 0.3 - 30% of available lines/columns)
+  -- Elements are the elements shown in the layout (in order).
+  -- Layouts are opened in order so that earlier layouts take priority in window sizing.
+  layouts = {
+    {
+      elements = {
+      -- Elements can be strings or table with id and size keys.
+        { id = "scopes", size = 0.25 },
+        "breakpoints",
+        "stacks",
+        "watches",
+      },
+      size = 40, -- 40 columns
+      position = "left",
+    },
+    {
+      elements = {
+        "repl",
+        "console",
+      },
+      size = 0.25, -- 25% of total lines
+      position = "bottom",
+    },
+  },
+  floating = {
+    max_height = nil, -- These can be integers or a float between 0 and 1.
+    max_width = nil, -- Floats will be treated as percentage of your screen.
+    border = "single", -- Border style. Can be "single", "double" or "rounded"
+    mappings = {
+      close = { "q", "<Esc>" },
+    },
+  },
+  windows = { indent = 1 },
+  render = {
+    max_type_length = nil, -- Can be integer or nil.
+  }
+})
+END
+
+
+" Telescope
+lua << END
+require('telescope').load_extension('dap')
+END
+
+
 """ Mapping
 let mapleader = " "
 
@@ -275,7 +365,10 @@ nmap <silent> <leader><leader> :noh<CR>
 " bnext-bprev
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
-nnoremap <leader>x :bd<CR>
+nnoremap <leader>x :bd!<CR>
+
+" Telescope
+nmap <C-n> :Telescope find_files<CR>
 
 " Terminal
 nmap <leader>h <C-w>s<C-w>j:terminal<CR>

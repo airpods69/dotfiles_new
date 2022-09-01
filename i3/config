@@ -148,7 +148,7 @@ bindsym $Mod+Shift+9 move container to workspace number $WS9
 bindsym $Mod+Shift+0 move container to workspace number $WS10
 
 #Launch Programs
-bindsym $Mod+Return exec kitty
+bindsym $Mod+Return exec alacritty
 bindsym $Mod+W exec google-chrome-stable
 bindsym $Mod+N exec thunar
 #bindsym $Mod+D exec discord
