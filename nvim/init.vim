@@ -3,8 +3,8 @@ set nu
 set nohlsearch
 set hidden
 set noerrorbells
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 set smartindent
 set nowrap
@@ -38,6 +38,7 @@ Plug 'ayu-theme/ayu-vim'
 
 " Lua line plugins
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
@@ -67,6 +68,9 @@ Plug 'luk400/vim-jukit'
 
 " Matlab
 Plug 'jvirtanen/vim-octave'
+
+" SQL
+Plug 'kezhenxu94/vim-mysql-plugin'
 
 " Line Indent
 Plug 'Yggdroot/indentLine'
@@ -136,28 +140,44 @@ require("presence"):setup({
 })
 END
 
-" " Jupyter Notebook
-" let g:jukit_shell_cmd = 'ipython'
-" "    - Specifies the command used to start a shell in the output split. Can also be an absolute path. Can also be any other shell command, e.g. `R`, `julia`, etc. (note that output saving is only possible for ipython)
-" let g:jukit_terminal = 'kitty'
-" "   - Terminal to use. Can be one of '', 'kitty', 'vimterm', 'nvimterm' or 'tmux'. If '' is given then will try to detect terminal
-" let g:jukit_auto_output_hist = 0
-" "   - If set to 1, will create an autocmd with event `CursorHold` to show saved ipython output of current cell in output-history split. Might slow down (n)vim significantly, you can use `set updatetime=<number of milliseconds>` to control the time to wait until CursorHold events are triggered, which might improve performance if set to a higher number (e.g. `set updatetime=1000`).
-" let g:jukit_use_tcomment = 0
-" "   - Whether to use tcomment plugin (https://github.com/tomtom/tcomment_vim) to comment out cell markers. If not, then cell markers will simply be prepended with `g:jukit_comment_mark`
-" let g:jukit_comment_mark = '#'
-" "   - See description of `g:jukit_use_tcomment` above
-" let g:jukit_mappings = 1
-" "   - If set to 0, none of the default function mappings (as specified further down) will be applied
-"
-" let g:jukit_highlight_markers = 1
-" "   - If set to 1, will highlight cell markers with `g:jukit_highlight_markers_color`
-" let g:jukit_enable_textcell_bg_hl = 1
-" "   - If set to 1, will highlight text cells with `g:jukit_textcell_bg_hl_color`
-" let g:jukit_enable_textcell_syntax = 1
-"
-" let g:jukit_text_syntax_file = $VIMRUNTIME . '/syntax/' . 'markdown.vim'
-" let g:jukit_hl_ext_enabled = '*'
+" NERDTreeSitter
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "python", "javascript", "kotlin", "cpp", },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  auto_install = true,
+
+  -- List of parsers to ignore installing (for "all")
+  ignore_install = { },
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    disable = { },
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
+
+
+" Jukit
+let g:jukit_shell_cmd = 'ipython3'
+
 
 
 " NERDTree
@@ -259,7 +279,7 @@ EOF
 " LSP
 lua << EOF
 local lspconfig = require('lspconfig')
-local servers = { 'clangd', 'pyright', 'tsserver' }
+local servers = { 'clangd', 'pyright', 'tsserver', 'kotlin_language_server', 'marksman', 'bashls', 'rust_analyzer'}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
