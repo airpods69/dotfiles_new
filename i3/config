@@ -6,21 +6,14 @@
 set $Mod Mod4
 floating_modifier $Mod
 
-#Smart Gaps
-smart_gaps on
-
 #Focus
 focus_follows_mouse yes
 
 #Fonts
 font pango: "Noto Sans" 10
 
-#Gaps
-gaps inner 4
-gaps outer 0
-
 #Border
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 1
 
 #Colors
 set_from_resource $bg i3wm #FFFFFF
@@ -53,7 +46,6 @@ set $WS10 "10"
 bindsym $Mod+Shift+F fullscreen toggle
 bindsym $Mod+Ctrl+S layout toggle split
 bindsym $Mod+Shift+space floating toggle
-bindsym $Mod+Shift+S exec systemctl suspend
 bindsym $Mod+Shift+Ctrl+S exec systemctl poweroff
 bindsym $Mod+Shift+R restart
 bindsym $mod+Ctrl+L exec ~/.config/i3/scripts/blur-lock.sh
@@ -149,11 +141,11 @@ bindsym $Mod+Shift+0 move container to workspace number $WS10
 
 #Launch Programs
 bindsym $Mod+Return exec alacritty
-bindsym $Mod+W exec google-chrome-stable
+bindsym $Mod+W exec firefox
 bindsym $Mod+N exec thunar
 #bindsym $Mod+D exec discord
 bindsym $Mod+D exec rofi -show drun -font 'Roboto Mono 14'
-bindsym Print exec flameshot gui
+bindsym $Mod+Shift+S exec flameshot gui
 bindsym $Mod+B exec notify-send "$(acpi)"
 bindsym $Mod+T exec notify-send "$(date)"
 
@@ -216,7 +208,7 @@ bindsym $mod+Ctrl+b bar mode toggle
 bar {
 	font pango:Roboto Mono 10
 	position top
-	status_command bumblebee-status -m hostname cpu \
+	status_command bumblebee-status -m hostname nic cpu \
 		memory battery pasink pasource brightness date time\
 		-p time.format="%H:%M" date.format="%a, %b %d %Y" brightness.step=5 \
 		-t onedark-powerline
