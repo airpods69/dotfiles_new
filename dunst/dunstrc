@@ -14,7 +14,7 @@ follow = none
 geometry = "325x50-5+5"
 
 #Frame
-frame_width = 2
+frame_width = 0
 frame_color = "#FFFFFF"
 
 #Progress Bar
