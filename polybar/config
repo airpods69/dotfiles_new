@@ -57,9 +57,9 @@ font-1 = JetBrainsMono Nerd Font:size=15;3
 font-2 = Material Design Icons:style=Bold:size=13;3
 font-3 = Dejavu Serif:fontformat=truetype:size=10:antialias=true;3
 
-modules-left = bspwm i3
+modules-left = caps xbps-updates i3
 modules-center = 
-modules-right = cpu memory temperature battery pulseaudio xbacklight wlan eth date rofi-shutdown
+modules-right = cava cpu memory temperature battery pulseaudio xbacklight wlan eth date rofi-shutdown
 
 tray-position = right
 tray-padding = 2
@@ -224,6 +224,16 @@ label-urgent-padding = 2
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
+[module/cava]
+type = custom/script
+tail = true
+exec = $HOME/.config/polybar/cava.sh
+format = <label>
+format-background = ${color.bg}
+format-font = 2
+label = %output%
+format-padding = 1
+
 [module/mpd]
 type = internal/mpd
 
@@ -327,12 +337,13 @@ format-volume = <ramp-volume> <label-volume>
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted = %{F#B68C2F}婢 ミュート%{F-}
+format-muted = 󰝟 Muted
 label-muted-foreground = #666
 
 ramp-volume-0 = 
-ramp-volume-1 = 奔
-ramp-volume-2 = 墳
+ramp-volume-1 = 
+ramp-volume-2 = 󰕾
+ramp-volume-3 = 
 
 ramp-volume-foreground = #80ffffff
 
@@ -393,6 +404,21 @@ animation-discharging-1 = 
 animation-discharging-2 = 
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
+
+[module/xbps-updates]
+type = custom/script
+;exec = pacman -Qu | wc -l
+exec = xbps-install -nuM | wc -l
+interval = 1000
+label = " %output% "
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = "  "
+format-prefix-background = ${colors.background}
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-font = 5
 
 [module/temperature]
 type = internal/temperature
@@ -488,3 +514,15 @@ margin-top = 0
 margin-bottom = 0
 
 ; vim:ft=dosini
+
+[module/caps]
+type = internal/xkeyboard
+format = <label-indicator>
+label-layout =  %icon%
+layout-icon-0 = us;US
+layout-icon-1 = ru;RU
+label-indicator-on-capslock = " 󰪛"
+label-indicator-off-capslock = ""
+format-padding = 1
+format-background = ${color.bg}
+format-foreground = ${color.fg}

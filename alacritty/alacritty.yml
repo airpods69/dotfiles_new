@@ -893,3 +893,30 @@ colors:
 
   # Highlight window damage information.
   #highlight_damage: false
+# BEGIN ACE
+colors:
+  primary:
+    background: '#0b101c'
+    foreground: '#96c3e0'
+  cursor:
+    text:       '#0b101c'
+    cursor:     '#96c3e0'
+  normal:
+    black:      '#0b101c'
+    red:        '#51566C'
+    green:      '#2B559C'
+    yellow:     '#2F53A5'
+    blue:       '#5069A0'
+    magenta:    '#0F63DF'
+    cyan:       '#987C82'
+    white:      '#96c3e0'
+  bright:
+    black:      '#69889c'
+    red:        '#51566C'
+    green:      '#2B559C'
+    yellow:     '#2F53A5'
+    blue:       '#5069A0'
+    magenta:    '#0F63DF'
+    cyan:       '#987C82'
+    white:      '#96c3e0'
+# END ACE

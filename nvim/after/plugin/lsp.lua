@@ -6,7 +6,6 @@ lsp.ensure_installed({
   'pyright',
   'rust_analyzer',
   'eslint',
-  'sumneko_lua',
 })
 
 lsp.set_preferences({

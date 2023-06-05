@@ -122,8 +122,10 @@ bindsym $mod+bracketright exec playerctl next
 bindsym $mod+bracketleft exec playerctl previous
 
 # Brightness
-bindsym $Mod+Shift+i exec xbacklight -dec 5
-bindsym $Mod+Shift+o exec xbacklight -inc 5
+bindsym $Mod+Shift+i exec xbacklight -dec 2
+bindsym $Mod+Shift+o exec xbacklight -inc 2
+bindsym XF86MonBrightnessDown exec xbacklight -dec 2
+bindsym XF86MonBrightnessUp exec xbacklight -inc 2
 
 #Move Between Workspaces
 bindsym $Mod+1 workspace number $WS1
@@ -150,7 +152,7 @@ bindsym $Mod+Shift+9 move container to workspace number $WS9
 bindsym $Mod+Shift+0 move container to workspace number $WS10
 
 #Launch Programs
-bindsym $Mod+Return exec kitty
+bindsym $Mod+Return exec alacritty
 bindsym $Mod+W exec brave-browser-stable
 bindsym $Mod+N exec thunar
 #bindsym $Mod+D exec discord
@@ -159,6 +161,7 @@ bindsym $Mod+Shift+S exec sleep 1 && flameshot gui
 bindsym $Mod+B exec notify-send "$(acpi)"
 bindsym $Mod+T exec notify-send "$(date)"
 
+bindsym $Mod+F exec alacritty -e .config/i3/scripts/vsp2
 #Application Configuration
 assign [class="telegram-desktop"] $WS2
 assign [class="discord"] $WS2
@@ -186,8 +189,9 @@ exec --no-startup-id picom --experimental-backend
 exec --no-startup-id /home/airpods69/.config/i3/scripts/battery.sh
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id /home/airpods69/.config/polybar/launch.sh
-exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
-bindsym $Mod+V exec feh --randomize --bg-scale ~/Pictures/Wallpapers/*
+# exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
+exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/wallpaper-13slgiy.jpg
+# bindsym $Mod+V exec feh --randomize --bg-scale ~/Pictures/Wallpapers/*
 
 set $bg-color            #282a36
 set $inactive-bg-color   #282a36
