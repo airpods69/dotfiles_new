@@ -14,8 +14,8 @@ font pango: "Noto Sans" 10
 
 #Border
 for_window [class="^.*"] border pixel 0
-gaps inner 3
-gaps outer 2
+# gaps inner 3
+# gaps outer 2
 
 #Colors
 set_from_resource $bg i3wm #C7C7C7
@@ -48,7 +48,7 @@ set $WS10 "10"
 bindsym $Mod+Shift+F fullscreen toggle
 bindsym $Mod+Ctrl+S layout toggle split
 bindsym $Mod+Shift+space floating toggle
-bindsym $Mod+Shift+Ctrl+S exec systemctl suspend
+bindsym $Mod+Shift+Ctrl+S exec loginctl suspend
 bindsym $Mod+Shift+R restart
 bindsym $mod+Ctrl+L exec ~/.config/i3/scripts/blur-lock.sh
 
@@ -152,7 +152,7 @@ bindsym $Mod+Shift+9 move container to workspace number $WS9
 bindsym $Mod+Shift+0 move container to workspace number $WS10
 
 #Launch Programs
-bindsym $Mod+Return exec alacritty
+bindsym $Mod+Return exec kitty
 bindsym $Mod+W exec brave-browser-stable
 bindsym $Mod+N exec thunar
 #bindsym $Mod+D exec discord
@@ -190,7 +190,7 @@ exec --no-startup-id /home/airpods69/.config/i3/scripts/battery.sh
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id /home/airpods69/.config/polybar/launch.sh
 # exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
-exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/wallpaper-13slgiy.jpg
+exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/everyoneshockeddrstone.png
 # bindsym $Mod+V exec feh --randomize --bg-scale ~/Pictures/Wallpapers/*
 
 set $bg-color            #282a36

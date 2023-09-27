@@ -189,7 +189,7 @@ colors:
   # Default colors
   primary:
     background: '#000000'
-    foreground: '#c5c8c6'
+    foreground: '#000000'
 
     # Bright and dim foreground colors
     #
@@ -896,7 +896,7 @@ colors:
 # BEGIN ACE
 colors:
   primary:
-    background: '#0b101c'
+    background: '#000000'
     foreground: '#96c3e0'
   cursor:
     text:       '#0b101c'
