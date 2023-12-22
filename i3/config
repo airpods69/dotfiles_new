@@ -48,7 +48,7 @@ set $WS10 "10"
 bindsym $Mod+Shift+F fullscreen toggle
 bindsym $Mod+Ctrl+S layout toggle split
 bindsym $Mod+Shift+space floating toggle
-bindsym $Mod+Shift+Ctrl+S exec loginctl suspend
+bindsym $Mod+Shift+Ctrl+S exec loginctl hibernate
 bindsym $Mod+Shift+R restart
 bindsym $mod+Ctrl+L exec ~/.config/i3/scripts/blur-lock.sh
 
@@ -152,7 +152,7 @@ bindsym $Mod+Shift+9 move container to workspace number $WS9
 bindsym $Mod+Shift+0 move container to workspace number $WS10
 
 #Launch Programs
-bindsym $Mod+Return exec alacritty
+bindsym $Mod+Return exec kitty
 bindsym $Mod+W exec brave-browser-stable
 bindsym $Mod+N exec thunar
 #bindsym $Mod+D exec discord
