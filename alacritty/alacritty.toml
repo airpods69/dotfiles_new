@@ -1,0 +1,49 @@
+import = [
+    "~/.config/alacritty/themes/themes/ayu_dark.toml"
+]
+
+# [colors.bright]
+# black = "#69889c"
+# blue = "#5069A0"
+# cyan = "#987C82"
+# green = "#2B559C"
+# magenta = "#0F63DF"
+# red = "#51566C"
+# white = "#96c3e0"
+# yellow = "#2F53A5"
+#
+# [colors.cursor]
+# cursor = "#96c3e0"
+# text = "#0b101c"
+#
+# [colors.normal]
+# black = "#0b101c"
+# blue = "#5069A0"
+# cyan = "#987C82"
+# green = "#2B559C"
+# magenta = "#0F63DF"
+# red = "#51566C"
+# white = "#96c3e0"
+# yellow = "#2F53A5"
+#
+# [colors.primary]
+# background = "#000000"
+# foreground = "#96c3e0"
+
+[font]
+# Normal font style
+normal = { family = "Noto Sans", style = "Regular" }  # Default for Linux/BSD: "monospace", Regular
+# Font size in points
+size = 11.25  # Default: 11.25
+# Offset is extra space around each character
+offset = { x = 0, y = 0 }  # Default: x = 0, y = 0
+# Glyph offset determines the locations of the glyphs within their cells
+glyph_offset = { x = 0, y = 0 }  # Default: x = 0, y = 0
+# Use built-in font for box drawing characters
+# builtin_box_drawing = true  # Default: true
+
+[scrolling]
+history = 10000
+
+[window]
+opacity = 1.0

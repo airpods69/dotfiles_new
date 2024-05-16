@@ -7,5 +7,11 @@ killall -q polybar
 
 # Launch mybar
 echo "---" | tee -a /tmp/mybar.log
-polybar mybar -c ~/.config/polybar/config >>/tmp/mybar.log 2>&1 & disown
+if type "xrandr"; then
+  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    MONITOR=$m polybar mybar -c ~/.config/polybar/config >>/tmp/mybar.log 2>&1 & disown
+  done
+else
+  polybar --reload example &
+fi
 echo "Bar launched..."
