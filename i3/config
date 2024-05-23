@@ -160,7 +160,7 @@ bindsym $Mod+Return exec kitty
 bindsym $Mod+W exec brave-browser-stable
 bindsym $Mod+N exec thunar
 #bindsym $Mod+D exec discord
-bindsym $Mod+D exec ~/.config/rofi/launchers/type-2/launcher.sh
+bindsym $Mod+D exec rofi -show drun -font 'Roboto Mono 14'
 bindsym $Mod+Shift+S exec sleep 1 && flameshot gui
 bindsym $Mod+Shift+P exec flameshot gui --raw | tesseract-ocr -c preserve_interword_spaces=1 stdin stdout | xclip -in -selection clipboard
 bindsym $Mod+B exec notify-send "$(acpi)"
@@ -195,9 +195,9 @@ exec xrdb ~/.Xresources
 exec dunst
 exec --no-startup-id picom -CGb
 # exec --no-startup-id picom --experimental-backend
-exec --no-startup-id /home/airpods69/.config/i3/scripts/battery.sh
+exec --no-startup-id ~/.config/i3/scripts/battery.sh
 exec_always --no-startup-id autotiling
-exec_always --no-startup-id /home/airpods69/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
 exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/everyoneshockeddrstone.png
 # bindsym $Mod+V exec feh --randomize --bg-scale ~/Pictures/Wallpapers/*
