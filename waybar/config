@@ -5,7 +5,7 @@
     "height": 34,
     "modules-left": [
         "custom/logo",
-        "sway/workspaces", "sway/mode"
+        "sway/workspaces" 
     ],
     "modules-center": [
         "clock"

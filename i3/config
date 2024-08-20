@@ -49,7 +49,7 @@ set $WS10 "10"
 bindsym $Mod+Shift+F fullscreen toggle
 bindsym $Mod+Ctrl+S layout toggle split
 bindsym $Mod+Shift+space floating toggle
-bindsym $Mod+Shift+Ctrl+S exec loginctl hibernate
+bindsym $Mod+Shift+Ctrl+S exec systemctl hibernate
 bindsym $Mod+Shift+R restart
 bindsym $mod+Ctrl+L exec ~/.config/i3/scripts/blur-lock.sh
 bindsym $mod+Ctrl+greater move workspace to output right
@@ -157,7 +157,7 @@ bindsym $Mod+Shift+0 move container to workspace number $WS10
 
 #Launch Programs
 bindsym $Mod+Return exec kitty
-bindsym $Mod+W exec brave-browser-stable
+bindsym $Mod+W exec brave-browser
 bindsym $Mod+N exec thunar
 #bindsym $Mod+D exec discord
 bindsym $Mod+D exec rofi -show drun -font 'Roboto Mono 14'
@@ -183,6 +183,33 @@ bindsym $Mod+Shift+semicolon exec pkill plank
 
 
 ###################
+####### KDE #######
+###################
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+for_window [class="yakuake"] floating enable
+for_window [class="systemsettings"] floating enable
+for_window [class="plasmashell"] floating enable;
+for_window [class="Plasma"] floating enable; border none
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [title="win7"] floating enable; border none
+for_window [class="krunner"] floating enable; border none
+for_window [class="Kmix"] floating enable; border none
+for_window [class="Klipper"] floating enable; border none
+for_window [class="Plasmoidviewer"] floating enable; border none
+for_window [class="(?i)*nextcloud*"] floating disable
+for_window [class="plasmashell" window_type="notification"] border none, move position 70 ppt 81 ppt
+no_focus [class="plasmashell" window_type="notification"]
+
+for_window [title="Desktop @ QRect.*"] kill; floating enable; border none
+# bindsym XF86AudioRaiseVolume exec --no-startup-id qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "increase_volume"
+# bindsym XF86AudioLowerVolume exec --no-startup-id qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "decrease_volume"
+bindsym XF86AudioMute exec --no-startup-id qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "mute"
+# bindsym XF86AudioMicMute exec --no-startup-id qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "mic_mute"
+
+
+###################
 ##### Startup #####
 ###################
 
@@ -192,7 +219,7 @@ exec xset led named "Scroll Lock"
 
 #System
 exec xrdb ~/.Xresources
-exec dunst
+# exec dunst
 exec --no-startup-id picom -CGb
 # exec --no-startup-id picom --experimental-backend
 exec --no-startup-id ~/.config/i3/scripts/battery.sh
@@ -201,6 +228,7 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
 exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/everyoneshockeddrstone.png
 # bindsym $Mod+V exec feh --randomize --bg-scale ~/Pictures/Wallpapers/*
+exec systemctl --user start pipewire.service
 
 set $bg-color            #282a36
 set $inactive-bg-color   #282a36

@@ -50,8 +50,11 @@ bindsym $Mod+Shift+F fullscreen toggle
 bindsym $Mod+Ctrl+S layout toggle split
 bindsym $Mod+Shift+space floating toggle
 bindsym $Mod+Shift+Ctrl+S exec loginctl hibernate
-bindsym $Mod+Shift+R exec swaymsg reload
+bindsym $Mod+Shift+R exec swaymsg reload && notify-send "Restarted Sway"
 bindsym $mod+Ctrl+L exec ~/.config/i3/scripts/blur-lock.sh
+
+bindsym $mod+Ctrl+Right exec swaymsg workspace next_on_output
+bindsym $mod+Ctrl+Left exec swaymsg workspace prev_on_output
 
 #Resize
 bindsym $mod+r mode "resize"
@@ -115,8 +118,9 @@ bindsym $Mod+Ctrl+1 exec wlr-randr --output eDP-1 --toggle
 bindsym $Mod+Ctrl+2 exec wlr-randr --output HDMI-A-1 --mode 2560x1080@74.990997 --toggle
 
 # Polybar
+# exec_always $HOME/.config/waybar/launch.sh
 bindsym $Mod+Shift+B exec killall waybar
-bindsym $Mod+Ctrl+B exec waybar &
+bindsym $Mod+Ctrl+B exec $HOME/.config/waybar/launch.sh
 
 
 
@@ -163,10 +167,9 @@ bindsym $Mod+Return exec kitty
 bindsym $Mod+W exec brave-browser-stable
 bindsym $Mod+N exec thunar
 #bindsym $Mod+D exec discord
-# bindsym $Mod+D exec rofi -show drun -font 'Roboto Mono 14'
-bindsym $Mod+D exec ~/.config/rofi/launchers/type-2/launcher.sh
+bindsym $Mod+D exec wofi --show drun 
 
-bindsym $Mod+Shift+S exec grimshot copy anything
+bindsym $Mod+Shift+S exec grim -g "$(slurp -d)" - | wl-copy
 bindsym $Mod+Shift+P exec flameshot gui --raw | tesseract-ocr -c preserve_interword_spaces=1 stdin stdout | xclip -in -selection clipboard
 bindsym $Mod+B exec notify-send "$(acpi)"
 bindsym $Mod+T exec notify-send "$(date)"
@@ -187,7 +190,7 @@ exec xset led named "Scroll Lock"
 
 #System
 exec xrdb ~/.Xresources
-exec dunst
+exec swaync
 # exec --no-startup-id picom -CGb
 # exec --no-startup-id picom --experimental-backend
 exec --no-startup-id /home/airpods69/.config/i3/scripts/battery.sh
@@ -195,13 +198,13 @@ exec_always --no-startup-id autotiling
 # exec_always --no-startup-id /home/airpods69/.config/waybar/launch.sh
 # exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
 exec_always --no-startup-id swaybg -i ~/Pictures/Wallpapers/everyoneshockeddrstone.png
+exec systemctl --user start pipewire.service
+# exec_always --no-startup-id killall pipewire && pipewire
 # bindsym $Mod+V exec feh --randomize --bg-scale ~/Pictures/Wallpapers/*
-exec pipewire
-exec wireplumber
 
-exec_always {
-    gsettings set $gnome-schema gtk-theme 'Sweet-Ambar-Blue-Dark-v40'
-}
+# exec_always {
+#     gsettings set $gnome-schema gtk-theme 'Sweet-Ambar-Blue-Dark-v40'
+# }
 
 
 
@@ -250,3 +253,5 @@ input "type:touchpad" {
     dwt enabled
     # accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
 }
+
+include /etc/sway/config.d/*
