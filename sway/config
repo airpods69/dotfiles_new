@@ -29,6 +29,9 @@ for_window [class="^.*"] border pixel 0
 # client.urgent $bg $bg $fg $bg $bg
 # client.placeholder $bg $bg $fg $bg $bg
 
+blur enable
+shadows enable
+
 #Workspaces
 set $WS1 "1"
 set $WS2 "2"
@@ -45,16 +48,22 @@ set $WS10 "10"
 ##### Keybinds #####
 ####################
 
-#i3
+#sway
 bindsym $Mod+Shift+F fullscreen toggle
 bindsym $Mod+Ctrl+S layout toggle split
 bindsym $Mod+Shift+space floating toggle
 bindsym $Mod+Shift+Ctrl+S exec loginctl hibernate
-bindsym $Mod+Shift+R exec swaymsg reload && notify-send "Restarted Sway"
+bindsym $Mod+Shift+R exec swaymsg reload && notify-send "Reloaded Sway!"
+# bindsym $Mod+Ctrl+M exec swaymsg exit
 bindsym $mod+Ctrl+L exec ~/.config/i3/scripts/blur-lock.sh
 
 bindsym $mod+Ctrl+Right exec swaymsg workspace next_on_output
 bindsym $mod+Ctrl+Left exec swaymsg workspace prev_on_output
+bindgesture swipe:right workspace prev
+bindgesture swipe:left workspace next
+
+bindsym $mod+I exec brightnessctl s 1000-
+bindsym $mod+O exec brightnessctl s 1000+
 
 #Resize
 bindsym $mod+r mode "resize"
@@ -165,7 +174,7 @@ bindsym $Mod+Shift+0 move container to workspace number $WS10
 #Launch Programs
 bindsym $Mod+Return exec kitty
 bindsym $Mod+W exec brave-browser-stable
-bindsym $Mod+N exec thunar
+bindsym $Mod+N exec dolphin
 #bindsym $Mod+D exec discord
 bindsym $Mod+D exec wofi --show drun 
 
@@ -198,7 +207,7 @@ exec_always --no-startup-id autotiling
 # exec_always --no-startup-id /home/airpods69/.config/waybar/launch.sh
 # exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
 exec_always --no-startup-id swaybg -i ~/Pictures/Wallpapers/everyoneshockeddrstone.png
-exec systemctl --user start pipewire.service
+exec pipewire
 # exec_always --no-startup-id killall pipewire && pipewire
 # bindsym $Mod+V exec feh --randomize --bg-scale ~/Pictures/Wallpapers/*
 

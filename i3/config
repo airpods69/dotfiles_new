@@ -219,16 +219,16 @@ exec xset led named "Scroll Lock"
 
 #System
 exec xrdb ~/.Xresources
-# exec dunst
+exec dunst
 exec --no-startup-id picom -CGb
 # exec --no-startup-id picom --experimental-backend
 exec --no-startup-id ~/.config/i3/scripts/battery.sh
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
-exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/everyoneshockeddrstone.png
+# exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/everyoneshockeddrstone.png
 # bindsym $Mod+V exec feh --randomize --bg-scale ~/Pictures/Wallpapers/*
-exec systemctl --user start pipewire.service
+exec pipewire
 
 set $bg-color            #282a36
 set $inactive-bg-color   #282a36
